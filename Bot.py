@@ -7,7 +7,7 @@ class Bot:
         self.dont_understand = self.DONT_UNDERSTAND
         return
 
-    def talk(self, str):
+    def respond(self, str):
         answer = self.find_answer(str)
         if answer is None:
             return random.choice(self.dont_understand)
