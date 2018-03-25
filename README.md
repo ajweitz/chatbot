@@ -18,3 +18,9 @@ To add a new package for the project, open `InstallPackages.py` and add a `insta
 - install python.
 - install postgresql.
 - To setup the packages and the database, run `Setup.py`.
+
+## Ideas
+- robot will learn that A -> B from interaction, probably from counting how many times was said A is B or A's are B's.
+- robot might also learn from asking is A -> B.
+- robot will need to understand negative or positive answers.
+- robot will need to understand a sentence if it has spelling mistakes, probably by using some kind of library for spelling checks.
