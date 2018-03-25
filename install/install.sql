@@ -38,7 +38,7 @@ SET default_with_oids = false;
 --
 
 CREATE TABLE public.greetings (
-    gname "char"[] NOT NULL,
+    gname "varchar" NOT NULL,
     rating numeric DEFAULT 0 NOT NULL, 
     primary key(gname)
 );
@@ -49,8 +49,8 @@ CREATE TABLE public.greetings (
 --
 
 CREATE TABLE public.unknown (
-    uname "char"[] NOT NULL,
-    rating numeric NOT NULL,
+    uname "varchar" NOT NULL,
+    rating numeric DEFAULT 0 NOT NULL,
     primary key(uname)
 );
 

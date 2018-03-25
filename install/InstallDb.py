@@ -6,7 +6,12 @@ from subprocess import call
 DB_NAME = "chatbot"
 DB_SCRIPT = "install.sql"
 DB_CONFIG = "database.ini"
+DEFAULT_GREETINGS_FILE = "greetings.lsv"
+DEFAULT_UNKNOWN_FILE = "unknown.lsv"
+DEFAULT_GREETINGS_TABLE = "greetings"
+DEFAULT_UNKNOWN_TABLE = "unknown"
 INSTALL_FOLDER = "install"
+DEFAULTS_FOLDER = "defaults"
 HOST = 'localhost'
 
 #ini file config
@@ -16,6 +21,17 @@ USER_KEY = 'user'
 PASS_KEY = 'password'
 DB_KEY = 'database'
 
+def insert(file, table, col, conn):
+    sql = "INSERT INTO "+table+"("+col+") VALUES(%s)"
+    cur = conn.cursor()
+    with open(os.path.join(DEFAULTS_FOLDER, file)) as fp:
+        line = fp.readline()
+        while line:
+            cur.execute(sql, (line.rstrip(),))
+            line = fp.readline()
+        conn.commit()
+        cur.close()
+    return
 
 username = input("Enter postgresql username:\n")
 password = input("Enter postgresql password:\n")
@@ -43,4 +59,10 @@ with open(DB_CONFIG, 'w') as configfile:
 
 # Connect to DB
 conn = psycopg2.connect("dbname={} user={} password={}".format(DB_NAME,username,password))
+#fill with data
+insert(DEFAULT_GREETINGS_FILE, DEFAULT_GREETINGS_TABLE, "gname", conn)
+insert(DEFAULT_UNKNOWN_FILE, DEFAULT_UNKNOWN_TABLE, "uname", conn)
+#close connection
+conn.close()
+
 
